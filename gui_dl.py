@@ -31,8 +31,8 @@ def download_function(url1, format):
     tkk.geometry("150x150")
     messagebox.showinfo("Info","Download complete")   
 
-# check URL before download
 def check_url(url):
+    # check URL before download
     ydl_options = {
 
         "forcetitle": {url},
@@ -52,11 +52,11 @@ percent = [0]
 time_down = ['0']
 
 def callable_hook(response):
-    # dane dotyczące pobierania
+    # data download
     try:
         if response["status"] == "downloading":
             downloaded_percent = int((response["downloaded_bytes"]*100)/response["total_bytes"])
-            downloaded_time = (response['eta']) #time sec
+            downloaded_time = (response['eta'])
             td = timedelta(seconds=downloaded_time)
             percent.append(downloaded_percent)
             time_down.append(str(td))
@@ -72,7 +72,8 @@ class YouTubeDownload(ttk.Frame):
         self.user = (getpass.getuser())
 
         # LABEL TITLE
-        self.title_label = Label(self, text='Video/Audio', font="ariel 15 bold", bg="black", fg="white")
+        self.title_label = Label(self, text='Video/Audio', 
+                                 font="ariel 15 bold", bg="black", fg="white")
         self.title_label.grid(column=1, row=0, sticky=tk.S, **options)
 
         # LABEL URL
@@ -91,19 +92,29 @@ class YouTubeDownload(ttk.Frame):
              
         # CHECK BOX VIDEO OR AUDIO  $VIDEO yt still no working
         self.check = tk.StringVar()
-        self.check_boxes = Checkbutton(self, text='Video', command=self.agreement_changed, variable=self.check, onvalue='bestvideo/bestaudio/best')
+        self.check_boxes = Checkbutton(self, text='Video', 
+                                       command=self.agreement_changed, 
+                                       variable=self.check, 
+                                       onvalue='bestvideo/bestaudio/best')
         self.check_boxes.grid(column=1, row=2, sticky=tk.E)
         # Audio
-        self.check_boxes = Checkbutton(self, text='Audio', command=self.agreement_changed, variable=self.check, onvalue='bestaudio/best')
+        self.check_boxes = Checkbutton(self, text='Audio', 
+                                       command=self.agreement_changed, 
+                                       variable=self.check, 
+                                       onvalue='bestaudio/best')
         self.check_boxes.grid(column=1, row=2, sticky=tk.S)
         
         # button download url
         self.button_submit = ttk.Button(self, text="Download")
-        self.button_submit['command'] = lambda: [self.threading(self.comunicate), self.threading(self.send_url), self.threading(self.update()), self.result_percent_eta()]
+        self.button_submit['command'] = lambda: [self.threading(self.comunicate),
+                                                 self.threading(self.send_url),
+                                                 self.threading(self.update()),
+                                                 self.result_percent_eta()]
         self.button_submit.grid(column=1, row=2, sticky=tk.W)
        
         # button destroy program
-        self.button_start = Button(self, text="Cancel", font="ariel 15 bold", bg="black", fg="white")
+        self.button_start = Button(self, text="Cancel", font="ariel 15 bold",
+                                   bg="black", fg="white")
         self.button_start['command'] = self.cancel_download
         self.button_start.grid(column=0, row=4, sticky=tk.S)
         
@@ -142,12 +153,12 @@ class YouTubeDownload(ttk.Frame):
         sys.exit()
         
     def update(self):
-    # update progressbar value
-            # progress bar
-        self.pb = ttk.Progressbar(length=240, orient='horizontal', mode='determinate', maximum=100)
+        # update progressbar value
+        self.pb = ttk.Progressbar(length=240, orient='horizontal',
+                                  mode='determinate', maximum=100)
         self.pb.place(x=120, y=180, bordermode="outside")
         self.pb['value'] = percent[-1]
-        self.after(3000, self.update) # run itself again after 1000 ms    
+        self.after(3000, self.update)   
     
     def open_path(self):
         win_dir = os.path.normpath(f'C:\\Users\\{self.user}\\Downloads')
