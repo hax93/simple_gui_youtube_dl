@@ -7,7 +7,7 @@ Easy media-downloader written in Tkinter, using popular repositorie [youtube-dl]
 * System Operation Windows
 * Install FFMPEG (otherwise 720p video)
 
-** Soon...
+## Soon...
 * Add Linux path folders
 * More alerts (when download failed etc.)
 * More selection quality
