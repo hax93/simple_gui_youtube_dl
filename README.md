@@ -5,6 +5,7 @@ Easy media-downloader written in Tkinter, using popular repositorie [youtube-dl]
 ## Requirements
 * [Python 3.10.4+](https://www.python.org/downloads)
 * System Operation Windows
+* [youtube-dl](https://github.com/ytdl-org/youtube-dl)
 * Install FFMPEG (otherwise 720p video)
 
 ## Soon...
