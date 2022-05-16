@@ -47,7 +47,13 @@ def download_function(url1, format):
     time.sleep(2)
     tkk =  tk.Tk()
     tkk.geometry("150x150")
-    messagebox.showinfo("Info","Download complete")   
+    dec = messagebox.askquestion(title='Download',
+                            message="Download complete, open download folder?")   
+    if dec == 'yes':
+        win_dir = os.path.normpath(f'C:\\Users\\{user}\\Downloads')
+        subprocess.Popen(f'explorer {win_dir}')
+    else:
+        pass
 
 def check_url(url):
     # check URL before download
@@ -142,11 +148,6 @@ class YouTubeDownload(ttk.Frame):
         self.button_start['command'] = self.cancel_download
         self.button_start.grid(column=0, row=4, sticky=tk.S)
         
-        # button path download
-        self.button_path = Button(self, text='File Download')
-        self.button_path['command'] = self.open_path
-        self.button_path.grid(column=0, row=3, ipady=10, sticky=tk.S)
-        
         # add padding to the frame and show it
         self.grid(padx=10, pady=10, sticky=tk.NSEW)
     
@@ -194,17 +195,13 @@ class YouTubeDownload(ttk.Frame):
         self.pb['value'] = percent[-1]
         self.after(3000, self.update)   
     
-    def open_path(self):
-        win_dir = os.path.normpath(f'C:\\Users\\{self.user}\\Downloads')
-        subprocess.Popen(f'explorer {win_dir}')
-                   
 class App(tk.Tk):
 
     def __init__(self):
         super().__init__()
 
         self.title('DownloaderDL')
-        self.geometry('500x300')
+        self.geometry('480x300')
         self.resizable(False, False)
                  
 if __name__ == "__main__":
